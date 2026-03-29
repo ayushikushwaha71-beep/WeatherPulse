@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* === Core Dark Futuristic Palette === */
+    --background: 235 28% 15%;
+    --foreground: 210 40% 98%;
+
+    --card: 235 28% 15%;
+    --card-foreground: 210 40% 98%;
+    --popover: 235 28% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 192 100% 50%;
+    --primary-foreground: 235 28% 8%;
+    --secondary: 235 20% 22%;
+    --secondary-foreground: 210 40% 90%;
+
+    --muted: 235 20% 20%;
+    --muted-foreground: 220 10% 70%;
+    --accent: 192 100% 50%;
+    --accent-foreground: 235 28% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 235 20% 24%;
+    --input: 235 20% 22%;
+    --ring: 192 100% 50%;
+    --radius: 0.75rem;
+
+    /* === Neon Accent Colors === */
+    --neon-cyan: #00cfff;
+    --neon-pink: #ff7eb9;
+    --neon-orange: #ffa500;
+
+    /* === Glassmorphism Tokens === */
+    --surface: rgba(255, 255, 255, 0.05);
+    --surface-hover: rgba(255, 255, 255, 0.08);
+    --surface-border: rgba(255, 255, 255, 0.08);
+    --blur-glass: 10px;
+    --radius-glass: 16px;
+
+    /* === Shadows === */
+    --shadow-glass: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-glass-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-neon-cyan: 0 0 20px rgba(0, 207, 255, 0.15);
+    --shadow-neon-pink: 0 0 20px rgba(255, 126, 185, 0.15);
+    --shadow-neon-orange: 0 0 20px rgba(255, 165, 0, 0.15);
+
+    /* === Gradients === */
+    --gradient-dashboard: linear-gradient(180deg, #1e1e2f 0%, #161625 100%);
+    --gradient-card-border: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+    --gradient-neon-cyan: linear-gradient(135deg, #00cfff 0%, #0088cc 100%);
+    --gradient-neon-pink: linear-gradient(135deg, #ff7eb9 0%, #cc4488 100%);
+    --gradient-neon-orange: linear-gradient(135deg, #ffa500 0%, #cc7700 100%);
+
+    /* === Transitions === */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--gradient-dashboard);
+    color: hsl(var(--foreground));
+    min-height: 100vh;
+  }
+
+  /* === Scrollbar Styling === */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@layer components {
+  /* === Glass Card Base === */
+  .glass-card {
+    background: var(--surface);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    border-radius: var(--radius-glass);
+    border: 1px solid var(--surface-border);
+    box-shadow: var(--shadow-glass);
+    transition: var(--transition-smooth);
+  }
+
+  .glass-card:hover {
+    background: var(--surface-hover);
+    box-shadow: var(--shadow-glass-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  /* === Neon Accented Cards === */
+  .glass-card-cyan {
+    @apply glass-card;
+    border-top: 1px solid rgba(0, 207, 255, 0.2);
+  }
+  .glass-card-cyan:hover {
+    box-shadow: var(--shadow-glass-hover), var(--shadow-neon-cyan);
+  }
+
+  .glass-card-pink {
+    @apply glass-card;
+    border-top: 1px solid rgba(255, 126, 185, 0.2);
+  }
+  .glass-card-pink:hover {
+    box-shadow: var(--shadow-glass-hover), var(--shadow-neon-pink);
+  }
+
+  .glass-card-orange {
+    @apply glass-card;
+    border-top: 1px solid rgba(255, 165, 0, 0.2);
+  }
+  .glass-card-orange:hover {
+    box-shadow: var(--shadow-glass-hover), var(--shadow-neon-orange);
+  }
+
+  /* === Section Headers === */
+  .section-title {
+    @apply text-lg font-semibold tracking-tight;
+    color: hsl(var(--foreground));
+  }
+
+  .section-subtitle {
+    @apply text-sm;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* === Metric Value Display === */
+  .metric-value {
+    @apply text-3xl font-bold tracking-tight;
+    color: hsl(var(--foreground));
+  }
+
+  .metric-label {
+    @apply text-xs font-medium uppercase tracking-wider;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .metric-unit {
+    @apply text-sm font-normal;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* === Chart Container === */
+  .chart-container {
+    @apply glass-card p-4 sm:p-5;
+    min-height: 280px;
+  }
+
+  /* === Loading Skeleton === */
+  .skeleton-pulse {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+    border-radius: var(--radius);
+  }
+
+  /* === Neon Dot Indicators === */
+  .neon-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .neon-dot-cyan {
+    @apply neon-dot;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 6px var(--neon-cyan);
+  }
+  .neon-dot-pink {
+    @apply neon-dot;
+    background: var(--neon-pink);
+    box-shadow: 0 0 6px var(--neon-pink);
+  }
+  .neon-dot-orange {
+    @apply neon-dot;
+    background: var(--neon-orange);
+    box-shadow: 0 0 6px var(--neon-orange);
+  }
+}
+
+/* === Recharts Overrides === */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.recharts-default-tooltip {
+  background: rgba(30, 30, 47, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  padding: 12px 16px !important;
+}
+
+.recharts-tooltip-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 12px !important;
+  margin-bottom: 6px !important;
+}
+
+.recharts-tooltip-item {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 13px !important;
+  padding: 2px 0 !important;
+}
